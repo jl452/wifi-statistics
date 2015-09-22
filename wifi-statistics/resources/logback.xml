@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss} [%level]\t[%thread]\t[%c:%F:%L] %msg\n</pattern>
+		</encoder>
+	</appender>
+	<!--http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/$PROJECT_NAME$.log</file>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%p]\t[%t]\t[%c:%F:%L] %m\n</pattern>
+		</encoder>
+		<!--http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy-->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--с архивацией старых логов-->
+			<fileNamePattern>logs/$PROJECT_NAME$%d{.yyyy-MM-dd}.log.zip</fileNamePattern>
+			<!--<fileNamePattern>logs/$PROJECT_NAME$%d{.yyyy-MM-dd}.log</fileNamePattern>-->
+		</rollingPolicy>
+	</appender>
+	<root level="debug">
+		<appender-ref ref="stdout"/>
+		<appender-ref ref="file"/>
+	</root>
+	<logger name="org.hibernate" level="error"/>
+	<!--<logger name="org.hibernate" level="debug"/>-->
+	<logger name="com.akzia" level="debug"/>
+</configuration>

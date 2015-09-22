@@ -1,0 +1,22 @@
+-----------------------------2123031430233345160473276202
+Content-Disposition: form-data; name="importLogFile"; filename="./tmp/log-filtered-wifi-part.aa"
+Content-Type: text/plain
+
+1401224509,08:60:6e:d3:88:54,6e:ab:5d:51:e9:33,31:6b:85:b0:7e:04,-90,BSSID:12:94:0b:06:21:22,Probe Request,
+1401224520,08:60:6e:d3:88:54,48:74:6e:59:d2:3d,Broadcast,-88,BSSID:Broadcast,Probe Request,AFIMALL_City_Beeline_WiFi_Free
+1401224528,08:60:6e:d3:88:54,00:1b:ba:d8:fc:82,54:e6:fc:92:6f:0c,-89,BSSID:00:1b:ba:d8:fc:82,Probe Response,Beeline_WiFi_WPA
+1401246005,08:60:6e:d3:88:54,2a:a4:3c:a3:93:9b,98:fe:94:d7:0b:1f,-60,BSSID:2a:a4:3c:a3:93:9b,Probe Response,#Akzia_WiFi_Free_Channel
+1401246005,08:60:6e:d3:88:54,2a:a4:3c:a3:93:9b,98:fe:94:d7:0b:1f,-67,BSSID:2a:a4:3c:a3:93:9b,Probe Response,#Akzia_WiFi_Free_Channel
+1401246006,08:60:6e:d3:88:54,00:1b:ba:d8:fc:81,98:fe:94:d7:0b:1f,-88,BSSID:00:1b:ba:d8:fc:81,Probe Response,Beeline_WiFi_Starbuck^S}NM-^G
+1401246006,08:60:6e:d3:88:54,00:1b:ba:d8:fc:81,98:fe:94:d7:0b:1f,-90,BSSID:00:1b:ba:d8:fc:81,Probe Response,Beeline_WiFi_Starbucks_FREE
+1401246006,08:60:6e:d3:88:54,00:1b:ba:d8:fc:82,98:fe:94:d7:0b:1f,-90,BSSID:00:1b:ba:d8:fc:82,Probe Response,Beeline_WiFi_WPA
+1401246006,08:60:6e:d3:88:54,98:fe:94:d7:0b:1f,Broadcast,-81,BSSID:Broadcast,Probe Request,
+1401246006,08:60:6e:d3:88:54,98:fe:94:d7:0b:1f,Broadcast,-82,BSSID:Broadcast,Probe Request,
+1401246006,08:60:6e:d3:88:54,98:fe:94:d7:0b:1f,Broadcast,-85,BSSID:Broadcast,Probe Request,
+1401246007,08:60:6e:d3:88:54,00:1b:ba:d8:fc:82,54:e6:fc:92:6f:0c,-90,BSSID:00:1b:ba:d8:fc:82,Probe Response,Beeline_WiFi_WPA
+1401246008,08:60:6e:d3:88:54,00:1b:ba:d8:5f:93,98:fe:94:46:4b:3b,-94,BSSID:04:1b:ba:d8:fc:e9,Probe Response,Beeline_WiFi_WPA
+1401246008,08:60:6e:d3:88:54,00:1b:ba:d8:fc:81,98:fe:94:d7:0b:1f,-90,BSSID:00:1b:ba:d8:fc:81,Probe Response,Beeline_WiFi_Starbucks_FREE
+1401246008,08:60:6e:d3:88:54,00:1b:ba:d8:fc:82,98:fe:94:d7:0b:1f,-91,BSSID:00:1b:ba:d8:fc:82,Probe Response,Beeline_WiFi_WPA
+1401246008,08:60:6e:d3:88:54,98:fe:94:d7:0b:1f,Broadcast,-90,BSSID:Broadcast,Probe Request,
+
+-----------------------------2123031430233345160473276202--

@@ -1,0 +1,293 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>wifi-statistics</name>
+	<description>
+		Wifi statistics.
+
+		При возникновении ошибки
+		Caused by: java.net.NoRouteToHostException: Cannot assign requested address
+		при конекте на локальный порт сделать
+		echo "1" >/proc/sys/net/ipv4/tcp_tw_reuse
+		и/или
+		echo "1" >/proc/sys/net/ipv4/tcp_tw_recycle
+		http://stackoverflow.com/questions/1572215/how-to-avoid-a-noroutetohostexception
+	</description>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<groupId>${project.name}</groupId>
+	<artifactId>wifi-statistics</artifactId>
+	<packaging>war</packaging>
+
+	<properties>
+		<main.class>example.local.statistics.wifi.service.LoaderService</main.class>
+		<webXmlPath>./src/main/webapp/WEB-INF/web.xml</webXmlPath>
+		<jetty.port>8082</jetty.port>
+		<jetty.path>/${project.artifactId}</jetty.path>
+		<tomcat.port>8082</tomcat.port>
+		<tomcat.path>/${project.artifactId}</tomcat.path>
+
+		<spring.version>4.0.7.RELEASE</spring.version>
+		<!--на 4.1.0 получается 406 ошибка при отдаче результата, на 4.0.7 работает-->
+		<commons-fileupload.version>RELEASE</commons-fileupload.version>
+		<javax.servlet.version>RELEASE</javax.servlet.version>
+		<jackson.version>1.9.13</jackson.version>
+		<hibernate.version>RELEASE</hibernate.version>
+		<joda-time.version>RELEASE</joda-time.version>
+
+		<hsqldb.version>2.3.2</hsqldb.version>
+		<postgresql.version>9.3-1101-jdbc41</postgresql.version>
+
+		<cors-filter.version>RELEASE</cors-filter.version>
+
+		<junit.version>RELEASE</junit.version>
+		<slf4j.version>RELEASE</slf4j.version>
+		<logback.version>RELEASE</logback.version>
+		<jdk.version>1.7</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>ci</id>
+			<build>
+				<filters>
+					<filter>maven-filter.ci.properties</filter>
+				</filters>
+			</build>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<build>
+				<filters>
+					<filter>maven-filter.prod.properties</filter>
+				</filters>
+			</build>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<!-- Spring core & mvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!--for org.springframework.web.multipart.commons.CommonsMultipartResolver-->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
+
+		<!--org.hsqldb.jdbcDriver-->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>${hsqldb.version}</version>
+		</dependency>
+		<!--org.postgresql.Driver-->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+		</dependency>
+
+		<!-- Servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${javax.servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<!--		<dependency>
+					<groupId>com.fasterxml.jackson.datatype</groupId>
+					<artifactId>jackson-datatype-hibernate4</artifactId>
+					<version>2.3.2</version>
+				</dependency>-->
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda-time.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.thetransactioncompany</groupId>
+			<artifactId>cors-filter</artifactId>
+			<version>${cors-filter.version}</version>
+		</dependency>
+
+		<!--logger-->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<filters>
+			<filter>maven-filter.dev.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<!--<targetPath>${project.build.directory}/${project.artifactId}/</targetPath>-->
+			</resource>
+		</resources>
+		<plugins>
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							&lt;!&ndash;<stripVersion>true</stripVersion>&ndash;&gt;
+							<excludeTransitive>true</excludeTransitive>
+							<includeScope>compile</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+			<!--скопировать все зависимости в папку lib/-->
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>${main.class}</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>-->
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<ignoreMissingFile>true</ignoreMissingFile>
+					<file>${project.basedir}/resources/logback.xml</file>
+					<outputFile>${project.build.outputDirectory}/logback.xml</outputFile>
+					<regex>false</regex>
+					<token>$PROJECT_NAME$</token>
+					<value>${project.artifactId}</value>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<!-- whatever version you use -->
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>${webXmlPath}</webXml>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<httpConnector>
+						<port>${jetty.port}</port>
+					</httpConnector>
+					<webApp>
+						<contextPath>${jetty.path}</contextPath>
+					</webApp>
+					<stopKey/>
+					<stopPort/>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<port>${tomcat.port}</port>
+					<path>${tomcat.path}</path>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

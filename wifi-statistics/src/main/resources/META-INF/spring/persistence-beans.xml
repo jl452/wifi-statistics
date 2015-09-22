@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- will be used either local or JNDI datasource type -->
+	<import resource="classpath:META-INF/spring/datasource-${datasource.type}-beans.xml"/>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- depends-on="liquibase" -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
+				<!-- <prop key="javax.persistence.validation.mode">ddl</prop> -->
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="jadira.usertype.autoRegisterUserTypes">true</prop>
+				<prop key="jadira.usertype.databaseZone">jvm</prop>
+				<prop key="jadira.usertype.javaZone">jvm</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.akzia.inets.statistics.wifi.model</value>
+			</list>
+		</property>
+	</bean>
+</beans>
